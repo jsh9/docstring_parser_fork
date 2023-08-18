@@ -1,5 +1,9 @@
-docstring_parser
+docstring_parser_fork
 ================
+
+This is a fork of [docstring_parser](https://github.com/rr-/docstring_parser). The reason I'm forking that is to quickly get some bug fixes out for users of [pydoclint](https://github.com/jsh9/pydoclint).
+
+------
 
 [![Build](https://github.com/rr-/docstring_parser/actions/workflows/build.yml/badge.svg)](https://github.com/rr-/docstring_parser/actions/workflows/build.yml)
 
@@ -42,13 +46,13 @@ Read [API Documentation](https://rr-.github.io/docstring_parser/).
 Installation using pip
 
 ```shell
-pip install docstring_parser
+pip install docstring_parser_fork
 
 # or if you want to install it in a virtual environment
 
 python -m venv venv # create environment
 source venv/bin/activate # activate environment
-python -m pip install docstring_parser
+python -m pip install docstring_parser_fork
 ```
 
 Installation using conda
