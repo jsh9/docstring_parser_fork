@@ -1,3 +1,7 @@
+# (Fork) 0.0.1 (2023-08-18)
+
+- Google: Fixed a bug where union style return types (such as `int | str`) are not parsed correctly
+
 # 0.15 (2022-09-05)
 
 - Parser: add a new function, `parse_from_object`, that supports scattered
