@@ -682,6 +682,7 @@ def test_yields() -> None:
         Yields:
             int: description
             with much text
+
             even some spacing
         """
     )

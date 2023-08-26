@@ -195,7 +195,7 @@ class Docstring:
 
     @property
     def yields(self):
-        """Return a single information on function yield.
+        """Return information on function yield.
         Takes the first generator information.
         """
         for item in self.meta:
