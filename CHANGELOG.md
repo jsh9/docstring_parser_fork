@@ -1,3 +1,8 @@
+# (Fork) 0.0.2 (2023-08-26)
+
+- Google: Added capability to parse the yields section
+
+
 # (Fork) 0.0.1 (2023-08-18)
 
 - Google: Fixed a bug where union style return types (such as `int | str`) are not parsed correctly
