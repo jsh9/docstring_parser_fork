@@ -585,12 +585,7 @@ def test_returns() -> None:
             int: description
         """
     )
-    assert docstring.returns is not None
-    assert docstring.returns.type_name == "int"
-    assert docstring.returns.description == "description"
-    assert docstring.many_returns is not None
-    assert len(docstring.many_returns) == 1
-    assert docstring.many_returns[0] == docstring.returns
+    assert docstring.returns is None
 
     docstring = parse(
         """
@@ -691,7 +686,7 @@ def test_yields() -> None:
     assert docstring.yields.description == (
         "description\nwith much text\n\neven some spacing"
     )
-    assert docstring.returns.is_generator is True
+    assert docstring.yields.is_generator is True
 
     docstring = parse(
         """
@@ -716,7 +711,8 @@ def test_yields() -> None:
     )
     assert docstring.returns is not None
     assert docstring.yields is not None
-    assert docstring.yields.type_name == docstring.returns.type_name
+    assert docstring.yields.type_name == 'Optional[Mapping[str, List[int]]]'
+    assert docstring.returns.type_name == 'int'
 
 
 def test_raises() -> None:

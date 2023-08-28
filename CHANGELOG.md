@@ -1,3 +1,8 @@
+# (Fork) 0.0.3 (2023-08-28)
+
+- Google, Numpy, Sphinx: Make "Yields" an official parsed section (`DocstringYields`)
+
+
 # (Fork) 0.0.2 (2023-08-26)
 
 - Google: Added capability to parse the yields section

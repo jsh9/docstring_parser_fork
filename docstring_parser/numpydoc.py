@@ -18,6 +18,7 @@ from .common import (
     DocstringRaises,
     DocstringReturns,
     DocstringStyle,
+    DocstringYields,
     RenderingStyle,
 )
 
@@ -209,6 +210,23 @@ class YieldsSection(ReturnsSection):
     """Parser for numpydoc generator "yields" sections."""
 
     is_generator = True
+
+    def _parse_item(self, key: str, value: str) -> DocstringYields:
+        match = RETURN_KEY_REGEX.match(key)
+        if match is not None:
+            yield_name = match.group("name")
+            type_name = match.group("type")
+        else:
+            yield_name = None
+            type_name = None
+
+        return DocstringYields(
+            args=[self.key],
+            description=_clean_str(value),
+            type_name=type_name,
+            is_generator=self.is_generator,
+            yield_name=yield_name,
+        )
 
 
 class DeprecationSection(_SphinxSection):
