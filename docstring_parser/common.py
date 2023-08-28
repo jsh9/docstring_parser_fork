@@ -84,7 +84,7 @@ class DocstringParam(DocstringMeta):
 
 
 class DocstringReturns(DocstringMeta):
-    """DocstringMeta symbolizing :returns or :yields metadata."""
+    """DocstringMeta symbolizing :returns metadata."""
 
     def __init__(
         self,
@@ -99,6 +99,24 @@ class DocstringReturns(DocstringMeta):
         self.type_name = type_name
         self.is_generator = is_generator
         self.return_name = return_name
+
+
+class DocstringYields(DocstringMeta):
+    """DocstringMeta symbolizing :yields metadata."""
+
+    def __init__(
+        self,
+        args: T.List[str],
+        description: T.Optional[str],
+        type_name: T.Optional[str],
+        is_generator: bool,
+        yield_name: T.Optional[str] = None,
+    ) -> None:
+        """Initialize self."""
+        super().__init__(args, description)
+        self.type_name = type_name
+        self.is_generator = is_generator
+        self.yield_name = yield_name
 
 
 class DocstringRaises(DocstringMeta):
@@ -199,7 +217,7 @@ class Docstring:
         Takes the first generator information.
         """
         for item in self.meta:
-            if isinstance(item, DocstringReturns) and item.is_generator:
+            if isinstance(item, DocstringYields) and item.is_generator:
                 return item
         return None
 

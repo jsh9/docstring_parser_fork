@@ -19,6 +19,7 @@ from .common import (
     DocstringRaises,
     DocstringReturns,
     DocstringStyle,
+    DocstringYields,
     ParseError,
     RenderingStyle,
 )
@@ -124,12 +125,19 @@ class GoogleParser:
 
     @staticmethod
     def _build_single_meta(section: Section, desc: str) -> DocstringMeta:
-        if section.key in RETURNS_KEYWORDS | YIELDS_KEYWORDS:
+        if section.key in RETURNS_KEYWORDS:
             return DocstringReturns(
                 args=[section.key],
                 description=desc,
                 type_name=None,
-                is_generator=section.key in YIELDS_KEYWORDS,
+                is_generator=False,
+            )
+        if section.key in YIELDS_KEYWORDS:
+            return DocstringYields(
+                args=[section.key],
+                description=desc,
+                type_name=None,
+                is_generator=True,
             )
         if section.key in RAISES_KEYWORDS:
             return DocstringRaises(
@@ -174,12 +182,19 @@ class GoogleParser:
                 is_optional=is_optional,
                 default=default,
             )
-        if section.key in RETURNS_KEYWORDS | YIELDS_KEYWORDS:
+        if section.key in RETURNS_KEYWORDS:
             return DocstringReturns(
                 args=[section.key, before],
                 description=desc,
                 type_name=before,
-                is_generator=section.key in YIELDS_KEYWORDS,
+                is_generator=False,
+            )
+        if section.key in YIELDS_KEYWORDS:
+            return DocstringYields(
+                args=[section.key, before],
+                description=desc,
+                type_name=before,
+                is_generator=True,
             )
         if section.key in RAISES_KEYWORDS:
             return DocstringRaises(

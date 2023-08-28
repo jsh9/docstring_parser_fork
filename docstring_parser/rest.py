@@ -17,6 +17,7 @@ from .common import (
     DocstringRaises,
     DocstringReturns,
     DocstringStyle,
+    DocstringYields,
     ParseError,
     RenderingStyle,
 )
@@ -54,7 +55,7 @@ def _build_meta(args: T.List[str], desc: str) -> DocstringMeta:
             default=default,
         )
 
-    if key in RETURNS_KEYWORDS | YIELDS_KEYWORDS:
+    if key in RETURNS_KEYWORDS:
         if len(args) == 2:
             type_name = args[1]
         elif len(args) == 1:
@@ -68,7 +69,24 @@ def _build_meta(args: T.List[str], desc: str) -> DocstringMeta:
             args=args,
             description=desc,
             type_name=type_name,
-            is_generator=key in YIELDS_KEYWORDS,
+            is_generator=False,
+        )
+
+    if key in YIELDS_KEYWORDS:
+        if len(args) == 2:
+            type_name = args[1]
+        elif len(args) == 1:
+            type_name = None
+        else:
+            raise ParseError(
+                f"Expected one or no arguments for a {key} keyword."
+            )
+
+        return DocstringYields(
+            args=args,
+            description=desc,
+            type_name=type_name,
+            is_generator=True,
         )
 
     if key in DEPRECATION_KEYWORDS:
@@ -127,6 +145,7 @@ def parse(text: str) -> Docstring:
 
     types = {}
     rtypes = {}
+    ytypes = {}
     for match in re.finditer(
         r"(^:.*?)(?=^:|\Z)", meta_chunk, flags=re.S | re.M
     ):
@@ -151,6 +170,8 @@ def parse(text: str) -> Docstring:
             types[args[1]] = desc
         elif len(args) in [1, 2] and args[0] == "rtype":
             rtypes[None if len(args) == 1 else args[1]] = desc
+        elif len(args) in [1, 2] and args[0] == "ytype":
+            ytypes[None if len(args) == 1 else args[1]] = desc
         else:
             ret.meta.append(_build_meta(args, desc))
 
@@ -159,6 +180,8 @@ def parse(text: str) -> Docstring:
             meta.type_name = meta.type_name or types.get(meta.arg_name)
         elif isinstance(meta, DocstringReturns):
             meta.type_name = meta.type_name or rtypes.get(meta.return_name)
+        elif isinstance(meta, DocstringYields):
+            meta.type_name = meta.type_name or ytypes.get(meta.yield_name)
 
     if not any(isinstance(m, DocstringReturns) for m in ret.meta) and rtypes:
         for (return_name, type_name) in rtypes.items():

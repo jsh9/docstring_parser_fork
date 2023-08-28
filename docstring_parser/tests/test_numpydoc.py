@@ -518,7 +518,7 @@ def test_yields() -> None:
     assert docstring.meta[0].args == ["yields"]
     assert docstring.meta[0].type_name == "int"
     assert docstring.meta[0].description == "description"
-    assert docstring.meta[0].return_name is None
+    assert docstring.meta[0].yield_name is None
     assert docstring.meta[0].is_generator
 
 
