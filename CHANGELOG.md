@@ -1,3 +1,7 @@
+# (Fork) 0.0.4 (2023-08-28)
+
+- Numpy: Add many_yields property
+
 # (Fork) 0.0.3 (2023-08-28)
 
 - Google, Numpy, Sphinx: Make "Yields" an official parsed section (`DocstringYields`)
