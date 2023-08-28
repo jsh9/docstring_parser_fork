@@ -521,6 +521,34 @@ def test_yields() -> None:
     assert docstring.meta[0].yield_name is None
     assert docstring.meta[0].is_generator
 
+    docstring = parse(
+        """
+        Short description
+        Yields
+        ------
+        int
+            description
+        str
+            another
+        """
+    )
+    assert len(docstring.meta) == 2
+    assert docstring.meta[0].args == ["yields"]
+    assert docstring.meta[0].type_name == "int"
+    assert docstring.meta[0].description == "description"
+    assert docstring.meta[0].yield_name is None
+    assert docstring.meta[0].is_generator
+    assert docstring.meta[1].args == ["yields"]
+    assert docstring.meta[1].type_name == "str"
+    assert docstring.meta[1].description == "another"
+    assert docstring.meta[1].yield_name is None
+    assert docstring.meta[1].is_generator
+    assert len(docstring.many_yields) == 2
+    assert docstring.many_yields[0].type_name == "int"
+    assert docstring.many_yields[0].description == "description"
+    assert docstring.many_yields[1].type_name == "str"
+    assert docstring.many_yields[1].description == "another"
+
 
 def test_returns() -> None:
     """Test parsing returns."""

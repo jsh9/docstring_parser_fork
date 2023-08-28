@@ -222,6 +222,13 @@ class Docstring:
         return None
 
     @property
+    def many_yields(self) -> T.List[DocstringYields]:
+        """Return a list of information on function yields."""
+        return [
+            item for item in self.meta if isinstance(item, DocstringYields)
+        ]
+
+    @property
     def deprecation(self) -> T.Optional[DocstringDeprecated]:
         """Return a single information on function deprecation notes."""
         for item in self.meta:
