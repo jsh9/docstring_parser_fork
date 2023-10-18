@@ -44,7 +44,6 @@ class Section(namedtuple("SectionBase", "title key type")):
 
 GOOGLE_TYPED_ARG_REGEX = re.compile(r"\s*(.+?)\s*\(\s*(.*[^\s]+)\s*\)")
 GOOGLE_ARG_DESC_REGEX = re.compile(r".*\. Defaults to (.+)\.")
-MULTIPLE_PATTERN = re.compile(r"(\s*[^:\s]+:)|([^:]*\]:.*)|(\s*[^|\s]+(\s*\|\s*[^|\s]+)*:)")  # noqa: E501
 
 DEFAULT_SECTIONS = [
     Section("Arguments", "param", SectionType.MULTIPLE),
@@ -105,7 +104,7 @@ class GoogleParser:
 
         if (
             section.type == SectionType.SINGULAR_OR_MULTIPLE
-            and not MULTIPLE_PATTERN.match(text)
+            and ":" not in text
         ) or section.type == SectionType.SINGULAR:
             return self._build_single_meta(section, text)
 
