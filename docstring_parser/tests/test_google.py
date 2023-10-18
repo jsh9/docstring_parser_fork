@@ -2,6 +2,7 @@
 import typing as T
 
 import pytest
+
 from docstring_parser.common import ParseError, RenderingStyle
 from docstring_parser.google import (
     GoogleParser,
@@ -735,8 +736,8 @@ def test_yields() -> None:
     )
     assert docstring.returns is not None
     assert docstring.yields is not None
-    assert docstring.yields.type_name == 'Optional[Mapping[str, List[int]]]'
-    assert docstring.returns.type_name == 'int'
+    assert docstring.yields.type_name == "Optional[Mapping[str, List[int]]]"
+    assert docstring.returns.type_name == "int"
 
 
 def test_raises() -> None:
