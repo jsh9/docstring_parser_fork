@@ -613,6 +613,7 @@ def test_returns() -> None:
 
 
 def test_returns_edge_case_1() -> None:
+    # This edge case comes from: https://github.com/jsh9/pydoclint/issues/84
     docstring = parse(
         """
         Short description
