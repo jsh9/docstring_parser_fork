@@ -523,6 +523,10 @@ def test_returns() -> None:
     assert len(docstring.many_returns) == 1
     assert docstring.many_returns[0] == docstring.returns
 
+    # Writing the return section as "description with: a colon!" is inherently
+    # ambiguous, and this library is not designed to handle this ambiguity.
+    # Therefore, if you write "description with: a colon!", you are going to
+    # get "description with" as the return type.
     docstring = parse(
         """
         Short description
@@ -531,8 +535,8 @@ def test_returns() -> None:
         """
     )
     assert docstring.returns is not None
-    assert docstring.returns.type_name is None
-    assert docstring.returns.description == "description with: a colon!"
+    assert docstring.returns.type_name == "description with"
+    assert docstring.returns.description == "a colon!"
     assert docstring.many_returns is not None
     assert len(docstring.many_returns) == 1
     assert docstring.many_returns[0] == docstring.returns
@@ -607,6 +611,22 @@ def test_returns() -> None:
     assert docstring.many_returns[0] == docstring.returns
 
 
+def test_returns_edge_case_1() -> None:
+    docstring = parse(
+        """
+        Short description
+        Returns:
+            dict[str, Any] | None: A description: with a colon
+        """
+    )
+    assert docstring.returns is not None
+    assert docstring.returns.type_name == "dict[str, Any] | None"
+    assert docstring.returns.description == "A description: with a colon"
+    assert docstring.many_returns is not None
+    assert len(docstring.many_returns) == 1
+    assert docstring.many_returns[0] == docstring.returns
+
+
 def test_yields() -> None:
     """Test parsing returns."""
     docstring = parse(
@@ -636,6 +656,10 @@ def test_yields() -> None:
     assert docstring.yields.description == "description"
     assert docstring.yields.is_generator is True
 
+    # Writing the return section as "description with: a colon!" is inherently
+    # ambiguous, and this library is not designed to handle this ambiguity.
+    # Therefore, if you write "description with: a colon!", you are going to
+    # get "description with" as the return type.
     docstring = parse(
         """
         Short description
@@ -644,8 +668,8 @@ def test_yields() -> None:
         """
     )
     assert docstring.yields is not None
-    assert docstring.yields.type_name is None
-    assert docstring.yields.description == "description with: a colon!"
+    assert docstring.yields.type_name == "description with"
+    assert docstring.yields.description == "a colon!"
     assert docstring.yields.is_generator is True
 
     docstring = parse(
