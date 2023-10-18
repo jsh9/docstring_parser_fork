@@ -613,6 +613,7 @@ def test_returns() -> None:
 
 
 def test_returns_edge_case_1() -> None:
+    """Test return section: edge case No. 1"""
     # This edge case comes from: https://github.com/jsh9/pydoclint/issues/84
     docstring = parse(
         """
