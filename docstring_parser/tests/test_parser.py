@@ -20,6 +20,8 @@ def test_rest() -> None:
         :param spam: spam desc
         :param int bla: bla desc
         :param str yay:
+        :attr hello: hello world
+        :type hello: bool
         :raises ValueError: exc desc
         :returns tuple: ret desc
         """
@@ -48,6 +50,12 @@ def test_rest() -> None:
     assert docstring.params[2].arg_name == "yay"
     assert docstring.params[2].type_name == "str"
     assert docstring.params[2].description == ""
+
+    assert len(docstring.attrs) == 1
+    assert docstring.attrs[0].arg_name == "hello"
+    assert docstring.attrs[0].type_name == "bool"
+    assert docstring.attrs[0].description == "hello world"
+
     assert len(docstring.raises) == 1
     assert docstring.raises[0].type_name == "ValueError"
     assert docstring.raises[0].description == "exc desc"

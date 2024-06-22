@@ -7,12 +7,14 @@ from collections import OrderedDict, namedtuple
 from enum import IntEnum
 
 from .common import (
+    ATTR_KEYWORDS,
     EXAMPLES_KEYWORDS,
     PARAM_KEYWORDS,
     RAISES_KEYWORDS,
     RETURNS_KEYWORDS,
     YIELDS_KEYWORDS,
     Docstring,
+    DocstringAttr,
     DocstringExample,
     DocstringMeta,
     DocstringParam,
@@ -146,7 +148,7 @@ class GoogleParser:
             return DocstringExample(
                 args=[section.key], snippet=None, description=desc
             )
-        if section.key in PARAM_KEYWORDS:
+        if section.key in PARAM_KEYWORDS | ATTR_KEYWORDS:
             raise ParseError("Expected paramenter name.")
         return DocstringMeta(args=[section.key], description=desc)
 
@@ -154,7 +156,7 @@ class GoogleParser:
     def _build_multi_meta(
         section: Section, before: str, desc: str
     ) -> DocstringMeta:
-        if section.key in PARAM_KEYWORDS:
+        if section.key in PARAM_KEYWORDS | ATTR_KEYWORDS:
             match = GOOGLE_TYPED_ARG_REGEX.match(before)
             if match:
                 arg_name, type_name = match.group(1, 2)
@@ -173,7 +175,13 @@ class GoogleParser:
             match = GOOGLE_ARG_DESC_REGEX.match(desc)
             default = match.group(1) if match else None
 
-            return DocstringParam(
+            DocstringSectionType = (
+                DocstringParam
+                if section.key in PARAM_KEYWORDS
+                else DocstringAttr
+            )
+
+            return DocstringSectionType(
                 args=[section.key, before],
                 description=desc,
                 arg_name=arg_name,

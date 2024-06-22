@@ -1,3 +1,8 @@
+# (Fork) 0.0.7 (2024-06-22)
+
+- Made "Attributes" a separate section from "Parameters" (for Google, Numpy, and Sphinx
+  styles) 
+
 # (Fork) 0.0.6 (2024-06-22)
 
 - Merged in the latest changes from upstream (version 0.16)
