@@ -1,3 +1,7 @@
+# (Fork) 0.0.6 (2024-06-22)
+
+- Merged in the latest changes from upstream (version 0.16)
+
 # 0.16 (2024-03-15)
 
 - Parser: add a new property, `description`, that combines short and long

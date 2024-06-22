@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "docstring_parser_fork"
-version = "0.0.5"
+version = "0.0.6"
 description = "Parse Python docstrings in reST, Google and Numpydoc format"
 authors = ["Marcin Kurczewski <dash@wind.garden>"]
 license = "MIT"
