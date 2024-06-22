@@ -6,11 +6,13 @@ import typing as T
 
 from .common import (
     DEPRECATION_KEYWORDS,
+    ATTR_KEYWORDS,
     PARAM_KEYWORDS,
     RAISES_KEYWORDS,
     RETURNS_KEYWORDS,
     YIELDS_KEYWORDS,
     Docstring,
+    DocstringAttr,
     DocstringDeprecated,
     DocstringMeta,
     DocstringParam,
@@ -26,7 +28,7 @@ from .common import (
 def _build_meta(args: T.List[str], desc: str) -> DocstringMeta:
     key = args[0]
 
-    if key in PARAM_KEYWORDS:
+    if key in PARAM_KEYWORDS | ATTR_KEYWORDS:
         if len(args) == 3:
             key, type_name, arg_name = args
             if type_name.endswith("?"):
@@ -46,7 +48,11 @@ def _build_meta(args: T.List[str], desc: str) -> DocstringMeta:
         match = re.match(r".*defaults to (.+)", desc, flags=re.DOTALL)
         default = match.group(1).rstrip(".") if match else None
 
-        return DocstringParam(
+        DocstringSectionType = (
+            DocstringParam if key in PARAM_KEYWORDS else DocstringAttr
+        )
+
+        return DocstringSectionType(
             args=args,
             description=desc,
             arg_name=arg_name,
@@ -176,7 +182,7 @@ def parse(text: str) -> Docstring:
             ret.meta.append(_build_meta(args, desc))
 
     for meta in ret.meta:
-        if isinstance(meta, DocstringParam):
+        if isinstance(meta, (DocstringParam, DocstringAttr)):
             meta.type_name = meta.type_name or types.get(meta.arg_name)
         elif isinstance(meta, DocstringReturns):
             meta.type_name = meta.type_name or rtypes.get(meta.return_name)

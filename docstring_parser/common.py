@@ -2,12 +2,15 @@
 import enum
 import typing as T
 
+ATTR_KEYWORDS = {
+    "attr",
+    "attribute",
+}
 PARAM_KEYWORDS = {
     "param",
     "parameter",
     "arg",
     "argument",
-    "attribute",
     "key",
     "keyword",
 }
@@ -62,9 +65,32 @@ class DocstringMeta:
         self.args = args
         self.description = description
 
+    def __repr__(self) -> str:
+        return str(self.__dict__)
+
 
 class DocstringParam(DocstringMeta):
     """DocstringMeta symbolizing :param metadata."""
+
+    def __init__(
+        self,
+        args: T.List[str],
+        description: T.Optional[str],
+        arg_name: str,
+        type_name: T.Optional[str],
+        is_optional: T.Optional[bool],
+        default: T.Optional[str],
+    ) -> None:
+        """Initialize self."""
+        super().__init__(args, description)
+        self.arg_name = arg_name
+        self.type_name = type_name
+        self.is_optional = is_optional
+        self.default = default
+
+
+class DocstringAttr(DocstringMeta):
+    """DocstringMeta symbolizing :attr metadata."""
 
     def __init__(
         self,
@@ -179,6 +205,9 @@ class Docstring:
         self.meta = []  # type: T.List[DocstringMeta]
         self.style = style  # type: T.Optional[DocstringStyle]
 
+    def __repr__(self) -> str:
+        return str(self.__dict__)
+
     @property
     def description(self) -> T.Optional[str]:
         """Return the full description of the function
@@ -197,6 +226,11 @@ class Docstring:
             return None
 
         return "\n".join(ret)
+
+    @property
+    def attrs(self) -> T.List[DocstringAttr]:
+        """Return a list of information on class attributes"""
+        return [item for item in self.meta if isinstance(item, DocstringAttr)]
 
     @property
     def params(self) -> T.List[DocstringParam]:

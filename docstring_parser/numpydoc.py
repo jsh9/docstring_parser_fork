@@ -11,6 +11,7 @@ from textwrap import dedent
 
 from .common import (
     Docstring,
+    DocstringAttr,
     DocstringDeprecated,
     DocstringExample,
     DocstringMeta,
@@ -160,6 +161,31 @@ class ParamSection(_KVSection):
         )
 
 
+class AttrSection(ParamSection):
+    """Parser for numpydoc attribute sections.
+
+    Note: the official Numpy docstring guide doesn't explicitly allow
+    an "Attributes" section (it only states a "Parameters" section), but
+    the Google style explicitly offers an "Attributes" section (see
+    https://google.github.io/styleguide/pyguide.html#s3.8.4-comments-in-doc-strings).
+    That's why we added this for Numpy style.
+    """
+
+    def _parse_item(self, key: str, value: str) -> DocstringAttr:
+        docstringParam: DocstringParam = super()._parse_item(
+            key=key,
+            value=value,
+        )
+        return DocstringAttr(
+            args=docstringParam.args,
+            description=docstringParam.description,
+            arg_name=docstringParam.arg_name,
+            type_name=docstringParam.type_name,
+            is_optional=docstringParam.is_optional,
+            default=docstringParam.default,
+        )
+
+
 class RaisesSection(_KVSection):
     """Parser for numpydoc raises sections.
 
@@ -296,8 +322,8 @@ DEFAULT_SECTIONS = [
     RaisesSection("Raise", "raises"),
     RaisesSection("Warns", "warns"),
     RaisesSection("Warn", "warns"),
-    ParamSection("Attributes", "attribute"),
-    ParamSection("Attribute", "attribute"),
+    AttrSection("Attributes", "attribute"),
+    AttrSection("Attribute", "attribute"),
     ReturnsSection("Returns", "returns"),
     ReturnsSection("Return", "returns"),
     YieldsSection("Yields", "yields"),
