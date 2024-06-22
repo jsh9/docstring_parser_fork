@@ -1,3 +1,9 @@
+# 0.16 (2024-03-15)
+
+- Parser: add a new property, `description`, that combines short and long
+  descriptions into a single string (thanks to @pR0Ps)
+- General: support Python 3.12 (thanks to @mauvilsa)
+
 # (Fork) 0.0.5 (2023-19-18)
 
 - Google: Fix parsing issue of return section (which would not parse `dict[str, Any] | None: Something` correctly)

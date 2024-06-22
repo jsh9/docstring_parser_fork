@@ -21,6 +21,7 @@ def test_short_description(source: str, expected: str) -> None:
     """Test parsing short description."""
     docstring = parse(source)
     assert docstring.short_description == expected
+    assert docstring.description == expected
     assert docstring.long_description is None
     assert not docstring.meta
 
@@ -104,7 +105,8 @@ def test_long_description(
 
 @pytest.mark.parametrize(
     "source, expected_short_desc, expected_long_desc, "
-    "expected_blank_short_desc, expected_blank_long_desc",
+    "expected_blank_short_desc, expected_blank_long_desc, "
+    "expected_full_desc",
     [
         (
             """
@@ -115,6 +117,7 @@ def test_long_description(
             None,
             False,
             False,
+            "Short description",
         ),
         (
             """
@@ -126,6 +129,7 @@ def test_long_description(
             "Long description",
             False,
             False,
+            "Short description\nLong description",
         ),
         (
             """
@@ -138,6 +142,7 @@ def test_long_description(
             "First line\n    Second line",
             False,
             False,
+            "Short description\nFirst line\n    Second line",
         ),
         (
             """
@@ -151,6 +156,7 @@ def test_long_description(
             "First line\n    Second line",
             True,
             False,
+            "Short description\n\nFirst line\n    Second line",
         ),
         (
             """
@@ -165,6 +171,7 @@ def test_long_description(
             "First line\n    Second line",
             True,
             True,
+            "Short description\n\nFirst line\n    Second line",
         ),
         (
             """
@@ -174,6 +181,7 @@ def test_long_description(
             None,
             False,
             False,
+            None,
         ),
     ],
 )
@@ -183,6 +191,7 @@ def test_meta_newlines(
     expected_long_desc: T.Optional[str],
     expected_blank_short_desc: bool,
     expected_blank_long_desc: bool,
+    expected_full_desc: T.Optional[str],
 ) -> None:
     """Test parsing newlines around description sections."""
     docstring = parse(source)
@@ -190,6 +199,7 @@ def test_meta_newlines(
     assert docstring.long_description == expected_long_desc
     assert docstring.blank_after_short_description == expected_blank_short_desc
     assert docstring.blank_after_long_description == expected_blank_long_desc
+    assert docstring.description == expected_full_desc
     assert len(docstring.meta) == 1
 
 
