@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "docstring_parser_fork"
-version = "0.0.7"
+version = "0.0.8"
 description = "Parse Python docstrings in reST, Google and Numpydoc format"
 authors = ["Marcin Kurczewski <dash@wind.garden>"]
 license = "MIT"
@@ -17,7 +17,6 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Natural Language :: English",
     "Operating System :: OS Independent",
-    "Programming Language :: Python :: 3.6",
     "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
@@ -34,7 +33,7 @@ packages = [
 include = ["docstring_parser/py.typed"]
 
 [tool.poetry.dependencies]
-python = ">=3.6,<4.0"
+python = ">=3.7,<4.0"
 
 [tool.poetry.dev-dependencies]
 pre-commit = {version = ">=2.16.0", python = ">=3.9"}
