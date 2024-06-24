@@ -1,7 +1,11 @@
+# (Fork) 0.0.8 (2024-06-23)
+
+- Added support for parsing attributes from Sphinx-style docstrings
+
 # (Fork) 0.0.7 (2024-06-22)
 
 - Made "Attributes" a separate section from "Parameters" (for Google, Numpy, and Sphinx
-  styles) 
+  styles)
 
 # (Fork) 0.0.6 (2024-06-22)
 
@@ -24,6 +28,8 @@
 # (Fork) 0.0.3 (2023-08-28)
 
 - Google, Numpy, Sphinx: Make "Yields" an official parsed section (`DocstringYields`)
+  - This corresponds to a PR in the upstream repo that was open
+    since June 2023 (https://github.com/rr-/docstring_parser/pull/79)
 
 
 # (Fork) 0.0.2 (2023-08-26)
@@ -33,7 +39,7 @@
 
 # (Fork) 0.0.1 (2023-08-18)
 
-- Google: Fixed a bug where union style return types (such as `int | str`) are not parsed correctly
+- Google: Fixed a bug where union style return types (such as `int | str`) are not parsed correctly (https://github.com/rr-/docstring_parser/issues/81)
 
 # 0.15 (2022-09-05)
 

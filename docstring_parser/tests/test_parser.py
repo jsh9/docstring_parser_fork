@@ -20,8 +20,12 @@ def test_rest() -> None:
         :param spam: spam desc
         :param int bla: bla desc
         :param str yay:
-        :attr hello: hello world
-        :type hello: bool
+
+        .. attribute :: hello
+            :type: bool
+            
+            hello world
+
         :raises ValueError: exc desc
         :returns tuple: ret desc
         """

@@ -6,7 +6,6 @@ import typing as T
 
 from .common import (
     DEPRECATION_KEYWORDS,
-    ATTR_KEYWORDS,
     PARAM_KEYWORDS,
     RAISES_KEYWORDS,
     RETURNS_KEYWORDS,
@@ -24,11 +23,13 @@ from .common import (
     RenderingStyle,
 )
 
+from docstring_parser.rest_attr_parser import Attribute, parse_attributes
+
 
 def _build_meta(args: T.List[str], desc: str) -> DocstringMeta:
     key = args[0]
 
-    if key in PARAM_KEYWORDS | ATTR_KEYWORDS:
+    if key in PARAM_KEYWORDS:
         if len(args) == 3:
             key, type_name, arg_name = args
             if type_name.endswith("?"):
@@ -48,11 +49,7 @@ def _build_meta(args: T.List[str], desc: str) -> DocstringMeta:
         match = re.match(r".*defaults to (.+)", desc, flags=re.DOTALL)
         default = match.group(1).rstrip(".") if match else None
 
-        DocstringSectionType = (
-            DocstringParam if key in PARAM_KEYWORDS else DocstringAttr
-        )
-
-        return DocstringSectionType(
+        return DocstringParam(
             args=args,
             description=desc,
             arg_name=arg_name,
@@ -133,6 +130,21 @@ def parse(text: str) -> Docstring:
         return ret
 
     text = inspect.cleandoc(text)
+
+    parsed_attrs: T.List[Attribute]
+    line_nums_with_attrs: T.List[int]
+    parsed_attrs, line_nums_with_attrs = parse_attributes(text)
+
+    # Exclude lines with attributes, because they can interfere with
+    # other contents
+    text_lines: T.List[str] = text.split('\n')
+    lines_without_attr = []
+    for i, line in enumerate(text_lines):
+        if i not in line_nums_with_attrs:
+            lines_without_attr.append(line)
+
+    text = '\n'.join(lines_without_attr)
+
     match = re.search("^:", text, flags=re.M)
     if match:
         desc_chunk = text[: match.start()]
@@ -200,6 +212,20 @@ def parse(text: str) -> Docstring:
                     return_name=return_name,
                 )
             )
+
+
+
+    ret.meta.extend([
+        DocstringAttr(
+            args=['attr', _.name],
+            description=_.description,
+            arg_name=_.name,
+            type_name=_.type,
+            is_optional=None,
+            default=None,
+        )
+        for _ in parsed_attrs
+    ])
 
     return ret
 

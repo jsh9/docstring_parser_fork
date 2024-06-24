@@ -1,7 +1,12 @@
 docstring_parser_fork
 ================
 
-This is a fork of [docstring_parser](https://github.com/rr-/docstring_parser). The reason I'm forking that is to quickly get some bug fixes out for users of [pydoclint](https://github.com/jsh9/pydoclint).
+This is a fork of [docstring_parser](https://github.com/rr-/docstring_parser).
+
+This fork fixes bugs that the upstream library has not fixed, and it also
+offers additional functionalities. To inspect the difference between this
+fort and the upstream, go to [CHANGELOG.md](./CHANGELOG.md) and read the
+entries that start with "(Fork)".
 
 ------
 
