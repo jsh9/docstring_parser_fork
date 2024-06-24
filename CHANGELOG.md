@@ -1,6 +1,7 @@
 # (Fork) 0.0.8 (2024-06-23)
 
 - Added support for parsing attributes from Sphinx-style docstrings
+- Dropped support for Python 3.6 because it doesn't support data classes
 
 # (Fork) 0.0.7 (2024-06-22)
 
