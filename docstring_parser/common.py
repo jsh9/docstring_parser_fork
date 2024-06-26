@@ -1,5 +1,6 @@
 """Common methods for parsing."""
 import enum
+import pprint
 import typing as T
 
 ATTR_KEYWORDS = {
@@ -206,7 +207,7 @@ class Docstring:
         self.style = style  # type: T.Optional[DocstringStyle]
 
     def __repr__(self) -> str:
-        return str(self.__dict__)
+        return pprint.pformat(self.__dict__, indent=2)
 
     @property
     def description(self) -> T.Optional[str]:
