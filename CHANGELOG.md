@@ -1,3 +1,7 @@
+# (Fork) 0.0.9 (2024-06-26)
+
+- Switched to pprint to show details of a `Docstring` object
+
 # (Fork) 0.0.8 (2024-06-23)
 
 - Added support for parsing attributes from Sphinx-style docstrings
