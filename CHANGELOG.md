@@ -1,3 +1,8 @@
+# (Fork) 0.0.10 (2025-01-10)
+
+- For numpy style, raise `ParseError` when a section with non-empty contents is detected
+  but nothing can be parsed 
+
 # (Fork) 0.0.9 (2024-06-26)
 
 - Switched to pprint to show details of a `Docstring` object
