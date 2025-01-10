@@ -3,7 +3,84 @@ import typing as T
 
 import pytest
 
+from docstring_parser import ParseError
 from docstring_parser.numpydoc import compose, parse
+
+
+@pytest.mark.parametrize(
+    "source",
+    [
+        "\n".join(
+            [
+                "This is a function",
+                "",
+                "Parameters",
+                "----------",
+                "    arg1 : str",
+                "    This is arg 1"
+            ]
+        ),
+        "\n".join(
+            [
+                "This is a function",
+                "",
+                "Parameters",
+                "----------",
+                "  arg1 : str",
+                "    This is arg 1"
+            ]
+        ),
+        "\n".join(
+            [
+                "This is a function",
+                "",
+                "Parameters",
+                "----------",
+                " arg1 : str",
+                "    This is arg 1"
+            ]
+        ),
+        "\n".join(
+            [
+                "This is a function",
+                "",
+                "Parameters",
+                "----------",
+                "    This is arg 1"
+            ]
+        ),
+        "\n".join(
+            [
+                "This is a function",
+                "",
+                "Returns",
+                "-------",
+                "    The return variable"
+            ]
+        ),
+        "\n".join(
+            [
+                "This is a function",
+                "",
+                "Yields",
+                "------",
+                "    Something yielded"
+            ]
+        ),
+        "\n".join(
+            [
+                "This is a function",
+                "",
+                "Raises",
+                "------",
+                "    Some error"
+            ]
+        ),
+    ],
+)
+def test_detect_formatting_error(source: str) -> None:
+    with pytest.raises(ParseError):
+        parse(source)
 
 
 @pytest.mark.parametrize(

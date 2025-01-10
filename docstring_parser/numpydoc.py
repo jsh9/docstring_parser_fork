@@ -9,6 +9,7 @@ import re
 import typing as T
 from textwrap import dedent
 
+from . import ParseError
 from .common import (
     Docstring,
     DocstringAttr,
@@ -409,7 +410,16 @@ class NumpydocParser:
             # ends at the start of the next header
             start = match.end()
             end = nextmatch.start() if nextmatch is not None else None
-            ret.meta.extend(factory.parse(meta_chunk[start:end]))
+
+            substring: str = meta_chunk[start:end]
+            parsed = list(factory.parse(substring))
+
+            if substring != "" and len(parsed) == 0:
+                raise ParseError(
+                    f"Section '{title}' is not empty but nothing was parsed."
+                )
+
+            ret.meta.extend(parsed)
 
         return ret
 
