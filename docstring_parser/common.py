@@ -233,9 +233,12 @@ class Docstring:
         """Calculate the "size" of the docstring. "Size" is an arbitrary
         metric for how populated a docstring is."""
         return (
+            # We want to down-weight long/short descriptions, because
+            # if a docstring doesn't descriptions, the other sections
+            # could be mistakenly parsed as long/short descriptions.
             int(self.short_description is not None)
             + int(self.long_description is not None)
-            + len(self.meta)
+            + len(self.meta) * 10
         )
 
     @property

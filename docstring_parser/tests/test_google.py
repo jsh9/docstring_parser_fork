@@ -1167,6 +1167,36 @@ def test_compose_expanded(source: str, expected: str) -> None:
         ),
         (
                 """
+                Parameters
+                ----------
+                a: int
+                    description
+                b: int
+                    description
+
+                Returns
+                -------
+                int
+                    The return value
+
+                Yields
+                ------
+                str
+                    The yielded value
+
+                Raises
+                ------
+                ValueError
+                    If something goes wrong.
+                TypeError
+                    If something else goes wrong.
+                IOError
+                    If something else goes wrong.
+                """,
+                2,  # because the beginning is parsed into long/short description
+        ),
+        (
+                """
                 Short description.
 
                 This is a longer description.
@@ -1186,7 +1216,26 @@ def test_compose_expanded(source: str, expected: str) -> None:
                     TypeError: If something else goes wrong.
                     IOError: If something else goes wrong.
                 """,
-                9,
+                72,
+        ),
+        (
+                """
+                Args:
+                    a (int): description
+                    b (int): description
+
+                Returns:
+                    int: The return value
+
+                Yields:
+                    str: The yielded value
+
+                Raises:
+                    ValueError: If something goes wrong.
+                    TypeError: If something else goes wrong.
+                    IOError: If something else goes wrong.
+                """,
+                70,
         ),
         (
                 """
@@ -1207,6 +1256,22 @@ def test_compose_expanded(source: str, expected: str) -> None:
                 :raises IOError: If something else goes wrong.
                 """,
                 2,  # because numpy style parser can't parse other styles
+        ),
+        (
+                """
+                :param a: description
+                :type a: int
+                :param b: description
+                :type b: int
+                :returns: The return value
+                :rtype: int
+                :yield: The yielded value
+                :rtype: str
+                :raises ValueError: If something goes wrong.
+                :raises TypeError: If something else goes wrong.
+                :raises IOError: If something else goes wrong.
+                """,
+                2,  # because the beginning is parsed into long/short description
         ),
     ],
 )

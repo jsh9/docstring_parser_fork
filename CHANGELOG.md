@@ -1,3 +1,7 @@
+# (Fork) 0.0.12 (2025-01-13)
+
+- Tweaked how to calculate the size of a `Docstring` object
+
 # (Fork) 0.0.11 (2025-01-12)
 
 - Added calculation of the size of a `Docstring` object
