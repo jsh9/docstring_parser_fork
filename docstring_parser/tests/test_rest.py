@@ -586,6 +586,36 @@ def test_short_rtype() -> None:
         ),
         (
                 """
+                Parameters
+                ----------
+                a: int
+                    description
+                b: int
+                    description
+
+                Returns
+                -------
+                int
+                    The return value
+
+                Yields
+                ------
+                str
+                    The yielded value
+
+                Raises
+                ------
+                ValueError
+                    If something goes wrong.
+                TypeError
+                    If something else goes wrong.
+                IOError
+                    If something else goes wrong.
+                """,
+                2,  # because the beginning is parsed into short/long description
+        ),
+        (
+                """
                 Short description.
 
                 This is a longer description.
@@ -609,6 +639,25 @@ def test_short_rtype() -> None:
         ),
         (
                 """
+                Args:
+                    a (int): description
+                    b (int): description
+
+                Returns:
+                    int: The return value
+
+                Yields:
+                    str: The yielded value
+
+                Raises:
+                    ValueError: If something goes wrong.
+                    TypeError: If something else goes wrong.
+                    IOError: If something else goes wrong.
+                """,
+                2,  # because the beginning is parsed into short/long description
+        ),
+        (
+                """
                 Short description.
 
                 This is a longer description.
@@ -625,7 +674,23 @@ def test_short_rtype() -> None:
                 :raises TypeError: If something else goes wrong.
                 :raises IOError: If something else goes wrong.
                 """,
-                9,
+                72,
+        ),
+        (
+                """
+                :param a: description
+                :type a: int
+                :param b: description
+                :type b: int
+                :returns: The return value
+                :rtype: int
+                :yield: The yielded value
+                :rtype: str
+                :raises ValueError: If something goes wrong.
+                :raises TypeError: If something else goes wrong.
+                :raises IOError: If something else goes wrong.
+                """,
+                70,
         ),
     ],
 )
