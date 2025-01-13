@@ -1193,3 +1193,95 @@ def test_deprecation(
 def test_compose(source: str, expected: str) -> None:
     """Test compose in default mode."""
     assert compose(parse(source)) == expected
+
+
+@pytest.mark.parametrize(
+    "src, expected_size",
+    [
+        ('', 0),
+        ('Some text', 1),
+        ('Some text\nSome more text', 2),
+        ('Some text\n\nSome more text', 2),
+        ('Some text\n\nSome more text\n\nEven more text', 2),
+        (
+            """
+            Short description.
+            
+            This is a longer description.
+            
+            Parameters
+            ----------
+            a: int
+                description
+            b: int
+                description
+                
+            Returns
+            -------
+            int
+                The return value
+                
+            Yields
+            ------
+            str
+                The yielded value
+                
+            Raises
+            ------
+            ValueError
+                If something goes wrong.
+            TypeError
+                If something else goes wrong.
+            IOError
+                If something else goes wrong.
+            """,
+            9,
+        ),
+        (
+                """
+                Short description.
+    
+                This is a longer description.
+    
+                Args:
+                    a (int): description
+                    b (int): description
+                    
+                Returns:
+                    int: The return value
+                    
+                Yields:
+                    str: The yielded value
+                    
+                Raises:
+                    ValueError: If something goes wrong.
+                    TypeError: If something else goes wrong.
+                    IOError: If something else goes wrong.
+                """,
+                2,  # because numpy style parser can't parse other styles
+        ),
+        (
+                """
+                Short description.
+
+                This is a longer description.
+
+                :param a: description
+                :type a: int
+                :param b: description
+                :type b: int
+                :returns: The return value
+                :rtype: int
+                :yield: The yielded value
+                :rtype: str
+                :raises ValueError: If something goes wrong.
+                :raises TypeError: If something else goes wrong.
+                :raises IOError: If something else goes wrong.
+                """,
+                2,  # because numpy style parser can't parse other styles
+        ),
+    ],
+)
+def test_docstring_size(src: str, expected_size: int) -> None:
+    docstring = parse(src)
+    assert docstring.size == expected_size

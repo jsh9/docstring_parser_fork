@@ -229,6 +229,16 @@ class Docstring:
         return "\n".join(ret)
 
     @property
+    def size(self) -> int:
+        """Calculate the "size" of the docstring. "Size" is an arbitrary
+        metric for how populated a docstring is."""
+        return (
+            int(self.short_description is not None)
+            + int(self.long_description is not None)
+            + len(self.meta)
+        )
+
+    @property
     def attrs(self) -> T.List[DocstringAttr]:
         """Return a list of information on class attributes"""
         return [item for item in self.meta if isinstance(item, DocstringAttr)]

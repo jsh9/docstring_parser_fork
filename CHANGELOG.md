@@ -1,3 +1,7 @@
+# (Fork) 0.0.11 (2025-01-12)
+
+- Added calculation of the size of a `Docstring` object
+
 # (Fork) 0.0.10 (2025-01-10)
 
 - For numpy style, raise `ParseError` when a section with non-empty contents is detected
