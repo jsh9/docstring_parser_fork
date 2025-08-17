@@ -1,6 +1,7 @@
 # (Fork) 0.0.13 (2025-08-17)
 
 - Merged in the latest changes from upstream (version 0.17)
+- Added `tox.ini` for local tox tests
 
 # (Fork) 0.0.12 (2025-01-13)
 
