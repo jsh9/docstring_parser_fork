@@ -1,3 +1,5 @@
+"""Tests for ReST attribute parser."""
+
 from typing import List
 
 import pytest
@@ -109,6 +111,7 @@ def test_parser_attributes(
     expected_attributes: List[Attribute],
     expected_lines_with_attributes: List[str],
 ) -> None:
+    """Test parsing of attributes from ReST docstrings."""
     attributes, lines_with_attributes = parse_attributes(docstring)
     assert attributes == expected_attributes
     assert lines_with_attributes == expected_lines_with_attributes

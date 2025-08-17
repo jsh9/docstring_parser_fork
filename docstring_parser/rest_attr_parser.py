@@ -6,12 +6,15 @@ from typing import List, Optional, Tuple
 
 @dataclass
 class Attribute:
+    """Represents a parsed attribute with name, type, and description."""
+
     name: str
     type: Optional[str] = None
     description: Optional[str] = None
 
 
 def parse_attributes(docstring: str) -> Tuple[List[Attribute], List[int]]:
+    """Parse attributes from a ReST-style docstring."""
     attributes = []
     lines = docstring.split("\n")
 
@@ -78,6 +81,7 @@ def parse_attribute_block(
     lines: List[str],
     global_line_nums: List[int],
 ) -> Tuple[Attribute, List[int]]:
+    """Parse a single attribute block from lines."""
     name = None
     type_ = None
     description = []

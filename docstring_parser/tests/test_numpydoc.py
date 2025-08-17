@@ -74,6 +74,7 @@ from docstring_parser.numpydoc import compose, parse
     ],
 )
 def test_detect_formatting_error(source: str) -> None:
+    """Test that formatting errors are detected and raise ParseError."""
     with pytest.raises(ParseError):
         parse(source)
 
@@ -1305,7 +1306,7 @@ def test_compose(source: str, expected: str) -> None:
                     TypeError: If something else goes wrong.
                     IOError: If something else goes wrong.
                 """,
-            2,  # because the Arg section are parsed into long/short descriptions
+            2,  # Arg section parsed into long/short descriptions
         ),
         (
             """
@@ -1346,5 +1347,6 @@ def test_compose(source: str, expected: str) -> None:
     ],
 )
 def test_docstring_size(src: str, expected_size: int) -> None:
+    """Test that docstring size is calculated correctly."""
     docstring = parse(src)
     assert docstring.size == expected_size

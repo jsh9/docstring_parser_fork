@@ -1302,5 +1302,6 @@ def test_compose_expanded(source: str, expected: str) -> None:
     ],
 )
 def test_docstring_size(src: str, expected_size: int) -> None:
+    """Test that docstring size is calculated correctly."""
     docstring = parse(src)
     assert docstring.size == expected_size
