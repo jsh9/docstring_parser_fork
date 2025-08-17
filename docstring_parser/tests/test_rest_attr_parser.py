@@ -2,14 +2,14 @@ from typing import List
 
 import pytest
 
-from docstring_parser.rest_attr_parser import parse_attributes, Attribute
+from docstring_parser.rest_attr_parser import Attribute, parse_attributes
 
 
 @pytest.mark.parametrize(
-    'docstring, expected_attributes, expected_lines_with_attributes',
+    "docstring, expected_attributes, expected_lines_with_attributes",
     [
         (
-            '',
+            "",
             [],
             [],
         ),
@@ -50,12 +50,12 @@ from docstring_parser.rest_attr_parser import parse_attributes, Attribute
             :type name: str
             """,
             [
-                Attribute(name='attr_1', type='str', description=None),
-                Attribute(name='attr_2', type='bool', description='Attr 2'),
-                Attribute(name='attr_3', type=None, description='Attr 3'),
-                Attribute(name='attr_4', type=None, description=None),
-                Attribute(name='attr_5', type=None, description=None),
-                Attribute(name='attr_6', type='dict | list', description='!'),
+                Attribute(name="attr_1", type="str", description=None),
+                Attribute(name="attr_2", type="bool", description="Attr 2"),
+                Attribute(name="attr_3", type=None, description="Attr 3"),
+                Attribute(name="attr_4", type=None, description=None),
+                Attribute(name="attr_5", type=None, description=None),
+                Attribute(name="attr_6", type="dict | list", description="!"),
             ],
             [3, 4, 6, 7, 9, 11, 13, 15, 16, 17, 18, 20],
         ),
@@ -93,21 +93,21 @@ from docstring_parser.rest_attr_parser import parse_attributes, Attribute
             :type name: str
             """,
             [
-                Attribute(name='attr_1', type='str', description=None),
-                Attribute(name='attr_2', type='bool', description='Attr 2'),
-                Attribute(name='attr_3', type=None, description='Attr 3'),
-                Attribute(name='attr_4', type=None, description=None),
-                Attribute(name='attr_5', type=None, description=None),
-                Attribute(name='attr_6', type='dict | list', description='!'),
+                Attribute(name="attr_1", type="str", description=None),
+                Attribute(name="attr_2", type="bool", description="Attr 2"),
+                Attribute(name="attr_3", type=None, description="Attr 3"),
+                Attribute(name="attr_4", type=None, description=None),
+                Attribute(name="attr_5", type=None, description=None),
+                Attribute(name="attr_6", type="dict | list", description="!"),
             ],
             [3, 4, 6, 7, 9, 14, 16, 20, 21, 24, 25, 27],
         ),
     ],
 )
 def test_parser_attributes(
-        docstring: str,
-        expected_attributes: List[Attribute],
-        expected_lines_with_attributes: List[str],
+    docstring: str,
+    expected_attributes: List[Attribute],
+    expected_lines_with_attributes: List[str],
 ) -> None:
     attributes, lines_with_attributes = parse_attributes(docstring)
     assert attributes == expected_attributes

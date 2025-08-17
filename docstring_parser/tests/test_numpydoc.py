@@ -18,7 +18,7 @@ from docstring_parser.numpydoc import compose, parse
                 "Parameters",
                 "----------",
                 "    arg1 : str",
-                "    This is arg 1"
+                "    This is arg 1",
             ]
         ),
         "\n".join(
@@ -28,7 +28,7 @@ from docstring_parser.numpydoc import compose, parse
                 "Parameters",
                 "----------",
                 "  arg1 : str",
-                "    This is arg 1"
+                "    This is arg 1",
             ]
         ),
         "\n".join(
@@ -38,7 +38,7 @@ from docstring_parser.numpydoc import compose, parse
                 "Parameters",
                 "----------",
                 " arg1 : str",
-                "    This is arg 1"
+                "    This is arg 1",
             ]
         ),
         "\n".join(
@@ -47,7 +47,7 @@ from docstring_parser.numpydoc import compose, parse
                 "",
                 "Parameters",
                 "----------",
-                "    This is arg 1"
+                "    This is arg 1",
             ]
         ),
         "\n".join(
@@ -56,7 +56,7 @@ from docstring_parser.numpydoc import compose, parse
                 "",
                 "Returns",
                 "-------",
-                "    The return variable"
+                "    The return variable",
             ]
         ),
         "\n".join(
@@ -65,17 +65,11 @@ from docstring_parser.numpydoc import compose, parse
                 "",
                 "Yields",
                 "------",
-                "    Something yielded"
+                "    Something yielded",
             ]
         ),
         "\n".join(
-            [
-                "This is a function",
-                "",
-                "Raises",
-                "------",
-                "    Some error"
-            ]
+            ["This is a function", "", "Raises", "------", "    Some error"]
         ),
     ],
 )
@@ -1202,11 +1196,11 @@ def test_compose(source: str, expected: str) -> None:
 @pytest.mark.parametrize(
     "src, expected_size",
     [
-        ('', 0),
-        ('Some text', 1),
-        ('Some text\nSome more text', 2),
-        ('Some text\n\nSome more text', 2),
-        ('Some text\n\nSome more text\n\nEven more text', 2),
+        ("", 0),
+        ("Some text", 1),
+        ("Some text\nSome more text", 2),
+        ("Some text\n\nSome more text", 2),
+        ("Some text\n\nSome more text\n\nEven more text", 2),
         (
             """
             Short description.
@@ -1242,7 +1236,7 @@ def test_compose(source: str, expected: str) -> None:
             72,
         ),
         (
-                """
+            """
                 Parameters
                 ----------
                 a: int
@@ -1269,10 +1263,10 @@ def test_compose(source: str, expected: str) -> None:
                 IOError
                     If something else goes wrong.
                 """,
-                70,
+            70,
         ),
         (
-                """
+            """
                 Short description.
     
                 This is a longer description.
@@ -1292,10 +1286,10 @@ def test_compose(source: str, expected: str) -> None:
                     TypeError: If something else goes wrong.
                     IOError: If something else goes wrong.
                 """,
-                2,  # because numpy style parser can't parse other styles
+            2,  # because numpy style parser can't parse other styles
         ),
         (
-                """
+            """
                 Args:
                     a (int): description
                     b (int): description
@@ -1311,10 +1305,10 @@ def test_compose(source: str, expected: str) -> None:
                     TypeError: If something else goes wrong.
                     IOError: If something else goes wrong.
                 """,
-                2,  # because the Arg section are parsed into long/short descriptions
+            2,  # because the Arg section are parsed into long/short descriptions
         ),
         (
-                """
+            """
                 Short description.
 
                 This is a longer description.
@@ -1331,10 +1325,10 @@ def test_compose(source: str, expected: str) -> None:
                 :raises TypeError: If something else goes wrong.
                 :raises IOError: If something else goes wrong.
                 """,
-                2,  # because numpy style parser can't parse other styles
+            2,  # because numpy style parser can't parse other styles
         ),
         (
-                """
+            """
                 :param a: description
                 :type a: int
                 :param b: description
@@ -1347,7 +1341,7 @@ def test_compose(source: str, expected: str) -> None:
                 :raises TypeError: If something else goes wrong.
                 :raises IOError: If something else goes wrong.
                 """,
-                2,  # because the beginning is parsed into long/short descriptions
+            2,  # because the beginning is parsed into long/short descriptions
         ),
     ],
 )
