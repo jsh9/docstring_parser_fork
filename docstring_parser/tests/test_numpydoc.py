@@ -1,4 +1,5 @@
 """Tests for numpydoc-style docstring routines."""
+
 import typing as T
 
 import pytest
@@ -86,6 +87,7 @@ def test_detect_formatting_error(source: str) -> None:
 @pytest.mark.parametrize(
     "source, expected",
     [
+        pytest.param(None, None, id="No __doc__"),
         ("", None),
         ("\n", None),
         ("Short description", "Short description"),
@@ -93,7 +95,9 @@ def test_detect_formatting_error(source: str) -> None:
         ("\n   Short description\n", "Short description"),
     ],
 )
-def test_short_description(source: str, expected: str) -> None:
+def test_short_description(
+    source: T.Optional[str], expected: T.Optional[str]
+) -> None:
     """Test parsing short description."""
     docstring = parse(source)
     assert docstring.short_description == expected

@@ -9,7 +9,7 @@
 # (Fork) 0.0.10 (2025-01-10)
 
 - For numpy style, raise `ParseError` when a section with non-empty contents is detected
-  but nothing can be parsed 
+  but nothing can be parsed
 
 # (Fork) 0.0.9 (2024-06-26)
 
@@ -28,6 +28,15 @@
 # (Fork) 0.0.6 (2024-06-22)
 
 - Merged in the latest changes from upstream (version 0.16)
+
+# 0.17 (2025-??-??)
+
+- General: Replace poetry with hatchling (thanks to @LecrisUT)
+- General: Drop support for Python 3.6 and 3.7 (thanks to @LecrisUT)
+- General: Officially support Python 3.13 (thanks to @mauvilsa)
+- General: Publish packages to PyPI with digital attestations (thanks to @mauvilsa)
+- Google: Fix multi-line parameter definitions (thanks to @coolbeevip)
+- Attrdoc: Remove use of deprecated ast classes (thanks to @fedepell)
 
 # 0.16 (2024-03-15)
 

@@ -120,7 +120,7 @@ def _build_meta(args: T.List[str], desc: str) -> DocstringMeta:
     return DocstringMeta(args=args, description=desc)
 
 
-def parse(text: str) -> Docstring:
+def parse(text: T.Optional[str]) -> Docstring:
     """Parse the ReST-style docstring into its components.
 
     :returns: parsed docstring
@@ -202,7 +202,7 @@ def parse(text: str) -> Docstring:
             meta.type_name = meta.type_name or ytypes.get(meta.yield_name)
 
     if not any(isinstance(m, DocstringReturns) for m in ret.meta) and rtypes:
-        for (return_name, type_name) in rtypes.items():
+        for return_name, type_name in rtypes.items():
             ret.meta.append(
                 DocstringReturns(
                     args=[],

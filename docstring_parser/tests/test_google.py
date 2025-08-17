@@ -1,4 +1,5 @@
 """Tests for Google-style docstring routines."""
+
 import typing as T
 
 import pytest
@@ -27,6 +28,28 @@ def test_google_parser_unknown_section() -> None:
     assert docstring.short_description == "Unknown:"
     assert docstring.long_description == "spam: a"
     assert len(docstring.meta) == 0
+
+
+def test_google_parser_multi_line_parameter_type() -> None:
+    """Test parsing a multi-line parameter type with default GoogleParser"""
+    parser = GoogleParser()
+    docstring = parser.parse(
+        """Description of the function.
+
+        Args:
+            output_type (Literal["searchResults", "sourcedAnswer",
+                "structured"]): The type of output.
+                This can be one of the following:
+                - "searchResults": Represents the search results.
+                - "sourcedAnswer": Represents a sourced answer.
+                - "structured": Represents a structured output format.
+
+        Returns:
+            bool: Indicates success or failure.
+
+        """
+    )
+    assert docstring.params[0].arg_name == "output_type"
 
 
 def test_google_parser_custom_sections() -> None:
@@ -121,6 +144,7 @@ def test_google_parser_custom_sections_after() -> None:
 @pytest.mark.parametrize(
     "source, expected",
     [
+        pytest.param(None, None, id="No __doc__"),
         ("", None),
         ("\n", None),
         ("Short description", "Short description"),
@@ -128,7 +152,9 @@ def test_google_parser_custom_sections_after() -> None:
         ("\n   Short description\n", "Short description"),
     ],
 )
-def test_short_description(source: str, expected: str) -> None:
+def test_short_description(
+    source: T.Optional[str], expected: T.Optional[str]
+) -> None:
     """Test parsing short description."""
     docstring = parse(source)
     assert docstring.short_description == expected

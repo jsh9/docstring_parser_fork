@@ -370,7 +370,7 @@ class NumpydocParser:
         self.sections[section.title] = section
         self._setup()
 
-    def parse(self, text: str) -> Docstring:
+    def parse(self, text: T.Optional[str]) -> Docstring:
         """Parse the numpy-style docstring into its components.
 
         :returns: parsed docstring
@@ -424,7 +424,7 @@ class NumpydocParser:
         return ret
 
 
-def parse(text: str) -> Docstring:
+def parse(text: T.Optional[str]) -> Docstring:
     """Parse the numpy-style docstring into its components.
 
     :returns: parsed docstring
@@ -447,7 +447,7 @@ def compose(
     """
 
     def process_one(
-        one: T.Union[DocstringParam, DocstringReturns, DocstringRaises]
+        one: T.Union[DocstringParam, DocstringReturns, DocstringRaises],
     ):
         if isinstance(one, DocstringParam):
             head = one.arg_name
