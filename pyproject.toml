@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "docstring_parser_fork"
-version = "0.0.12"
+version = "0.0.13"
 description = "Parse Python docstrings in reST, Google and Numpydoc format"
 authors = [
     {name="Marcin Kurczewski", email="dash@wind.garden"},
@@ -75,4 +75,9 @@ disable = [
     "too-many-arguments",
     "too-many-positional-arguments",
     "too-few-public-methods",
+    "import-outside-toplevel",
+    "cyclic-import",
 ]
+
+[tool.hatch.build.targets.wheel]
+packages = ["docstring_parser"]

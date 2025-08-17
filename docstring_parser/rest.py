@@ -4,6 +4,8 @@ import inspect
 import re
 import typing as T
 
+from docstring_parser.rest_attr_parser import Attribute, parse_attributes
+
 from .common import (
     DEPRECATION_KEYWORDS,
     PARAM_KEYWORDS,
@@ -22,8 +24,6 @@ from .common import (
     ParseError,
     RenderingStyle,
 )
-
-from docstring_parser.rest_attr_parser import Attribute, parse_attributes
 
 
 def _build_meta(args: T.List[str], desc: str) -> DocstringMeta:
@@ -137,13 +137,13 @@ def parse(text: T.Optional[str]) -> Docstring:
 
     # Exclude lines with attributes, because they can interfere with
     # other contents
-    text_lines: T.List[str] = text.split('\n')
+    text_lines: T.List[str] = text.split("\n")
     lines_without_attr = []
     for i, line in enumerate(text_lines):
         if i not in line_nums_with_attrs:
             lines_without_attr.append(line)
 
-    text = '\n'.join(lines_without_attr)
+    text = "\n".join(lines_without_attr)
 
     match = re.search("^:", text, flags=re.M)
     if match:
@@ -213,19 +213,19 @@ def parse(text: T.Optional[str]) -> Docstring:
                 )
             )
 
-
-
-    ret.meta.extend([
-        DocstringAttr(
-            args=['attr', _.name],
-            description=_.description,
-            arg_name=_.name,
-            type_name=_.type,
-            is_optional=None,
-            default=None,
-        )
-        for _ in parsed_attrs
-    ])
+    ret.meta.extend(
+        [
+            DocstringAttr(
+                args=["attr", _.name],
+                description=_.description,
+                arg_name=_.name,
+                type_name=_.type,
+                is_optional=None,
+                default=None,
+            )
+            for _ in parsed_attrs
+        ]
+    )
 
     return ret
 

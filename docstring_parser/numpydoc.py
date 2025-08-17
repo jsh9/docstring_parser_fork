@@ -173,17 +173,17 @@ class AttrSection(ParamSection):
     """
 
     def _parse_item(self, key: str, value: str) -> DocstringAttr:
-        docstringParam: DocstringParam = super()._parse_item(
+        docstring_param: DocstringParam = super()._parse_item(
             key=key,
             value=value,
         )
         return DocstringAttr(
-            args=docstringParam.args,
-            description=docstringParam.description,
-            arg_name=docstringParam.arg_name,
-            type_name=docstringParam.type_name,
-            is_optional=docstringParam.is_optional,
-            default=docstringParam.default,
+            args=docstring_param.args,
+            description=docstring_param.description,
+            arg_name=docstring_param.arg_name,
+            type_name=docstring_param.type_name,
+            is_optional=docstring_param.is_optional,
+            default=docstring_param.default,
         )
 
 
