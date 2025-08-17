@@ -3,6 +3,15 @@
 - Merged in the latest changes from upstream (version 0.17)
 - Added `tox.ini` for local tox tests
 
+# 0.17 (2025-??-??)
+
+- General: Replace poetry with hatchling (thanks to @LecrisUT)
+- General: Drop support for Python 3.6 and 3.7 (thanks to @LecrisUT)
+- General: Officially support Python 3.13 (thanks to @mauvilsa)
+- General: Publish packages to PyPI with digital attestations (thanks to @mauvilsa)
+- Google: Fix multi-line parameter definitions (thanks to @coolbeevip)
+- Attrdoc: Remove use of deprecated ast classes (thanks to @fedepell)
+
 # (Fork) 0.0.12 (2025-01-13)
 
 - Tweaked how to calculate the size of a `Docstring` object
@@ -33,15 +42,6 @@
 # (Fork) 0.0.6 (2024-06-22)
 
 - Merged in the latest changes from upstream (version 0.16)
-
-# 0.17 (2025-??-??)
-
-- General: Replace poetry with hatchling (thanks to @LecrisUT)
-- General: Drop support for Python 3.6 and 3.7 (thanks to @LecrisUT)
-- General: Officially support Python 3.13 (thanks to @mauvilsa)
-- General: Publish packages to PyPI with digital attestations (thanks to @mauvilsa)
-- Google: Fix multi-line parameter definitions (thanks to @coolbeevip)
-- Attrdoc: Remove use of deprecated ast classes (thanks to @fedepell)
 
 # 0.16 (2024-03-15)
 
