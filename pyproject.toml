@@ -76,3 +76,6 @@ disable = [
     "too-many-positional-arguments",
     "too-few-public-methods",
 ]
+
+[tool.hatch.build.targets.wheel]
+packages = ["docstring_parser"]
