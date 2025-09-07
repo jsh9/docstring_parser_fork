@@ -1,3 +1,8 @@
+# (Unpublished on upstream)
+
+- General: Allow `parse()` to work with missing `__doc__` (thanks to @jamesbraza)
+- Epydoc: Add missing attribute parsing, which includes the "@ivar", "@cvar" and "@var" syntax (thanks to @Masara)
+
 # (Fork) 0.0.14 (2025-09-07)
 
 - Fixed attribute rendering issue (when rendering docstrings from parsed object)
@@ -7,7 +12,7 @@
 - Merged in the latest changes from upstream (version 0.17)
 - Added `tox.ini` for local tox tests
 
-# 0.17 (2025-??-??)
+# 0.17 (2025-07-21)
 
 - General: Replace poetry with hatchling (thanks to @LecrisUT)
 - General: Drop support for Python 3.6 and 3.7 (thanks to @LecrisUT)
