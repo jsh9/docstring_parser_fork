@@ -1,3 +1,7 @@
+# (Fork) 0.0.14 (2025-09-07)
+
+- Fixed attribute rendering issue (when rendering docstrings from parsed object)
+
 # (Fork) 0.0.13 (2025-08-17)
 
 - Merged in the latest changes from upstream (version 0.17)
