@@ -55,6 +55,12 @@ exclude = [
     "/docstring_parser/tests",
 ]
 
+[tool.hatch.build.targets.sdist]
+exclude = [
+    "/env-*",
+    "/venv*",
+]
+
 [tool.black]
 line-length = 79
 
