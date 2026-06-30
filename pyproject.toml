@@ -50,6 +50,7 @@ dev = [
 ]
 
 [tool.hatch.build.targets.wheel]
+packages = ["docstring_parser"]
 exclude = [
     "/docstring_parser/tests",
 ]
@@ -83,6 +84,3 @@ disable = [
     "import-outside-toplevel",
     "cyclic-import",
 ]
-
-[tool.hatch.build.targets.wheel]
-packages = ["docstring_parser"]
