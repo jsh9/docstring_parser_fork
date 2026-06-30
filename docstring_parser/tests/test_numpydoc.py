@@ -3,6 +3,8 @@
 import typing as T
 
 import pytest
+
+from docstring_parser.common import ParseError
 from docstring_parser.numpydoc import (
     DEFAULT_SECTIONS,
     PARAM_DEFAULT_REGEX,
